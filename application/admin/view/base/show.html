@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<!--用于信息提示的页面-->
+<html lang="cn">
+<head>
+    <style>
+        body
+        {
+            /*引入背景图片,并且设置成不平铺且只显示一次*/
+            background-image: url("static/img/bj009.jpg");
+            background-repeat: no-repeat;
+            background-color: deepskyblue;
+            /*color: darkorange;*/
+            color: #CCCC00;
+            /*color: #FF6666;*/
+            font-size: 14px;
+            font-weight: bold;
+            text-align: center;/* 文字居中 */
+            margin: 0px auto; /* 外边距 */
+            padding: 0px; /* 内边距 */
+            /* 定义了中文和英文的的字体 */
+            font-family:"Arial","微软雅黑";
+        }
+
+        .test
+        {
+            /* 圆角边框 */
+            border:3px solid #ff0033;
+            border-radius: 25px;
+            box-shadow: 8px 8px 10px #cc0033 ,-8px -8px 10px #cc0033;
+            overflow: hidden;
+            width: 450px;
+            /*position: absolute;*/
+            margin: 5px auto;
+        }
+        ul
+        {
+            list-style-type: none;/*设置为无标记符号*/
+        }
+    </style>
+    <link href="static/css/test.css" type='text/css' />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>提示信息</title>
+</head>
+<body>
+<div class="test">
+    <h1>{$error}</h1>
+    <h3><a href="backStage">后台首页</a></h3>
+    <h4>
+        <a href="addNewsPage">新增新闻</a>&nbsp;&nbsp;<a href="managingNewsPage">管理新闻</a>&nbsp;&nbsp;<a href="addProductPage">新增产品</a>&nbsp;&nbsp;
+        <a href="managingProductPage">管理产品</a>&nbsp;&nbsp;<a href="addProductTypePage">新增类型</a>&nbsp;&nbsp;<a href="managingProductTypePage">管理类型</a>
+    </h4>
+</div>
+</body>
+</html>

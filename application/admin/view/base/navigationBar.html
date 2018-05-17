@@ -1,0 +1,57 @@
+<!--左导航栏-->
+<div class="layui-side layui-bg-black">
+    <div class="layui-side-scroll">
+        <!-- 左侧导航区域（可配合layui已有的垂直导航） -->
+        <ul class="layui-nav layui-nav-tree" lay-filter="test">
+            <!-- 侧边导航: <ul class="layui-nav layui-nav-tree layui-nav-side"> -->
+            <li class="layui-nav-item">
+                <a href="javascript:;">系统管理</a>
+                <dl class="layui-nav-child ">
+                    <dd><a href="SetWebPage">网站设置</a></dd>
+                    <!--<dd><a href="">用户管理</a></dd>-->
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">冻鳗相关</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:;"onclick= "newWindow('addComicTypePage','新增动画类型')">新增冻鳗类型</a></dd>
+                    <dd><a href="javascript:;"onclick= "newWindow('adminComicTypePage','管理动画类型')">管理冻鳗类型</a></dd>
+                    <dd><a href="javascript:;"onclick= "newWindow('addComicPage','新增动画')">新增冻鳗</a></dd>
+                    <dd><a href="javascript:;"onclick= "newWindow('adminComicPage','管理动画')">管理冻鳗</a></dd>
+                </dl>
+            </li>
+            <li class="layui-nav-item">
+                <a href="javascript:;">享用成果</a>
+                <dl class="layui-nav-child">
+                    <dd><a href="javascript:;"onclick= "newWindow('comicListIndex','看片儿~')">动漫列表</a></dd>
+                </dl>
+            </li>
+            <!--<li class="layui-nav-item"><a href="adminIndex">后台首页</a></li>-->
+            <!--<li class="layui-nav-item"><a href="index">前台首页</a></li>-->
+        </ul>
+    </div>
+</div>
+
+<script>
+    /**
+     * 用于在选项卡里打开新页面的方法
+     * @param Url，新页面的url，跳转外链要带上http或https，通过<iframe>标签来引入其他网页
+     * @param Name ，新页面在选项卡里的名字
+     * 关于选项卡的内容在base/admin.html里面
+     */
+    function newWindow(Url,Name){
+//        layer.msg(Url);
+        layui.use('element', function(){
+            var $ = layui.jquery
+                    ,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+            //新增一个Tab项
+            var layid = new Date().getTime();
+            element.tabAdd('demo', {
+                title: Name //选项卡名称
+                ,content: "<iframe src="+Url+" scrolling='auto' frameborder='0' height='733px' width='100%'></iframe>"//选项卡内容
+                ,id: layid //选项卡id，实际使用一般是规定好的id，这里以时间戳模拟下
+            })
+            element.tabChange('demo', layid);//切换到指定layid的选项卡页面上
+        });
+    }
+</script>

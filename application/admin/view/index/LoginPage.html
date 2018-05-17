@@ -1,0 +1,61 @@
+{include file='base/header'/} <!—引入header.html-->
+<title>Login</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="Flat Dark Web Login Form Responsive Templates, Iphone Widget Template, Smartphone login forms,Login form, Widget Template, Responsive Templates, a Ipad 404 Templates, Flat Responsive Templates" />
+<link href="css/login.css" rel='stylesheet' type='text/css' />
+<!--引入layui和jQuery-->
+<!--<link rel="stylesheet" href="layui/css/layui.css"/>-->
+<!--<script src="layui/layui.js" merge="true" type="text/javascript"></script>-->
+<!--<script type="text/javascript" src="js/jquery-3.2.1.js"></script>-->
+</head>
+<body>
+<script>$(document).ready(function(c) {
+	$('.close').on('click', function(c){
+		$('.login-form').fadeOut('slow', function(c){
+	  		$('.login-form').remove();
+		});
+	});
+});
+</script>
+ <!--SIGN UP-->
+<div class="login-form">
+	<div class="close"> </div>
+		<div class="head-info">
+			<label class="lbl-1"> </label>
+			<label class="lbl-2"> </label>
+			<label class="lbl-3"> </label>
+		</div>
+	<h1 style="color: #01AAED">欢迎回来，请登录</h1>
+			<div class="clear"> </div>
+	<div class="avtar">
+		<img src="img/avtar.png" />
+	</div>
+		<script>
+			/* 拦截表单并验证 */
+			function form(){
+				if($("#userName").val()==""){
+					layer.msg('账号不能为空!');
+					return false;
+				}
+				if($("#passWord").val()==""){
+					layer.msg('密码不能为空!');
+					return false;
+				}
+				return true;
+			}
+		</script>
+		<form action="Login" method="post" id="form" onSubmit="return form();" >
+			<input type="text" class="text" name="userName" id="userName"  placeholder="请输入账号">
+			<div class="key">
+				<input type="password" name="passWord" id="passWord" placeholder="请输入密码">
+			</div>
+			<div class="signin">
+				<input type="submit" value="Login" >
+			</div>
+		</form>
+	</div>
+	<!--<div class="copy-rights">-->
+		<!--<p>Copyright &copy; 2015.Company name All rights reserved.More Templates <a href="http://www.cssmoban.com/" target="_blank" title="ģ��֮��">ģ��֮��</a> - Collect from <a href="http://www.cssmoban.com/" title="��ҳģ��" target="_blank">��ҳģ��</a></p>-->
+	<!--</div>-->
+</body>
+</html>

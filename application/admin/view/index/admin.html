@@ -1,0 +1,44 @@
+{include file="base/header"/}<!--引入网站头部-->
+    <title>后台主页</title>
+</head>
+<script>
+    /* 一打开首页就显示必应 */
+    var num = 0;
+    if(num==0){
+        var othis = $("#biying"), method = othis.data('method');
+        active[method] ? active[method].call(this, othis) : '';
+        num++;
+    }
+</script>
+<body id="body">
+    <div class="layui-layout layui-layout-admin">
+        <div class="layui-header">
+
+            <!-- 头部区域（可配合layui已有的水平导航） -->
+            {include file='base/headernavigationBar'/} <!—headernavigationBa.html-->
+        </div>
+
+        <!-- 左靠边导航栏 -->
+        {include file='base/navigationBar'/} <!—引入navigationBar.html-->
+
+        <div class="layui-body">
+            <!-- 内容主体区域 -->
+            <div class="layui-tab" lay-filter="demo" lay-allowclose="true">
+                <ul class="layui-tab-title layui-tab-card">
+                    <li class="layui-this" lay-id="11">后台首页</li>
+                </ul>
+                <div class="layui-tab-content">
+                    <div class="layui-tab-item layui-show">
+                        {include file='index/index' /}<!—引入index.html-->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="layui-footer">
+            {include file='base/footer'/} <!—headernavigationBa.html-->
+        </div>
+    </div>
+</body>
+</html>

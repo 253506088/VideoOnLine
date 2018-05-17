@@ -1,0 +1,67 @@
+<!-- 后台首页 -->
+<div class="site-demo-button" id="layerDemo" style="margin-bottom: 0;">
+    <blockquote class="layui-elem-quote">尊敬的会员欢迎回来</blockquote>
+
+
+    <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+        <legend>系统环境说明</legend>
+    </fieldset>
+    <ul class="layui-timeline">
+        <li class="layui-timeline-item">
+            <i class="layui-icon layui-timeline-axis"></i>
+            <div class="layui-timeline-content layui-text">
+                <div class="layui-timeline-title">ThinkPHP5.0框架</div>
+            </div>
+        </li>
+        <li class="layui-timeline-item">
+            <i class="layui-icon layui-timeline-axis"></i>
+            <div class="layui-timeline-content layui-text">
+                <div class="layui-timeline-title">PHP5.4.45+Apache</div>
+            </div>
+        </li>
+        <li class="layui-timeline-item">
+            <i class="layui-icon layui-timeline-axis"></i>
+            <div class="layui-timeline-content layui-text">
+                <div class="layui-timeline-title">MySQL</div>
+            </div>
+        </li>
+        <li class="layui-timeline-item">
+            <i class="layui-icon layui-timeline-axis"></i>
+            <div class="layui-timeline-content layui-text">
+                <div class="layui-timeline-title">上传视频限制233Mb</div>
+            </div>
+        </li>
+        <li class="layui-timeline-item">
+            <i class="layui-icon layui-timeline-axis"></i>
+            <div class="layui-timeline-content layui-text">
+                <div class="layui-timeline-title">上传图片限制2Mb</div>
+            </div>
+        </li>
+        <li class="layui-timeline-item">
+            <i class="layui-icon layui-anim layui-anim-rotate layui-anim-loop layui-timeline-axis"></i>
+            <div class="layui-timeline-content layui-text">
+                <div class="layui-timeline-title">欢迎来到哔~后台</div>
+            </div>
+        </li>
+    </ul>
+
+    <script>
+        layui.use('element', function(){
+            var $ = layui.jquery
+                    ,element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
+            //触发事件
+            var active = {
+                tabAdd: function(){
+                    //新增一个Tab项
+                    element.tabAdd('demo', {
+                        title: '新选项'+ (Math.random()*1000|0) //用于演示
+                        ,content: '内容'+ (Math.random()*1000|0)
+                        ,id: new Date().getTime() //实际使用一般是规定好的id，这里以时间戳模拟下
+                    })
+                }
+            };
+        });
+    </script>
+
+    <!--<button data-method="setTop" id="biying" class="layui-btn">内置必应</button>-->
+</div>

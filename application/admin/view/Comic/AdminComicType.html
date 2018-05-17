@@ -1,0 +1,149 @@
+<!-- 管理动画类型 -->
+{include file="base/header"/}<!--引入网站头部-->
+<title>管理动画类型</title>
+</head>
+
+<body id="body">
+    <!-- 内容主体区域 -->
+    <blockquote class="layui-elem-quote">管理动画类型信息&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="color: #cc0033">注意 : 禁用相应的类型时，该类型的动画也会被禁用</span></blockquote>
+    <table class="layui-table" lay-filter="demo" lay-data="{
+                        width: 1500,
+                        height:'full-30',
+                        url:'comicTypeData',//数据源
+                        page:true,//开启分页
+                        id:'idTest',//本表的id
+                        limit:17,//一页的数据量
+                        done: function(res, curr, count){
+                        //如果是异步请求数据方式，res即为你接口返回的信息。
+                        //如果是直接赋值的方式，res即为：{data: [], count: 99} data为当前页数据、count为数据总长度
+                        console.log(res);
+
+                        //得到当前页码
+                        console.log(curr);
+
+                        //得到数据总量
+                        console.log(count);
+                      }
+                    }">
+        <thead>
+        <tr>
+            <th lay-data="{type:'checkbox', fixed: 'left'}"></th>
+            <th lay-data="{field:'TypeId', width:140, sort: true, fixed: true}">Id</th>
+            <th lay-data="{field:'gmt_create', width:270, sort: true}">创建时间</th>
+            <th lay-data="{field:'gmt_modified', width:270, sort: true}">最近修改时间</th>
+            <th lay-data="{field:'is_deleted', width:200 ,templet: '#switchTpl', unresize: true}">是否启用</th>
+            <th lay-data="{field:'TypeName', width:270}">类型名称</th>
+            <th lay-data="{fixed: 'right', width:285, align:'center', toolbar: '#barDemo'}"></th>
+        </tr>
+        </thead>
+    </table>
+
+    <script type="text/html" id="barDemo">
+        <!--<a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="detail">查看</a>-->
+        <a class="layui-btn layui-btn-xs" lay-event="edit">编辑</a>
+        <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="del">删除</a>
+    </script>
+    <script type="text/html" id="switchTpl">
+        <!-- {{d.TypeId}}用来获取本列的TypeId   {{ d.is_deleted == 0 ? 'checked' : '' }}根据is_deleted来设置单选项的状态 -->
+        <input type="checkbox" name="sex" value="{{d.TypeId}}"  lay-skin="switch" lay-text="禁用|启用" lay-filter="delete" {{ d.is_deleted == 0 ? 'checked' : '' }}>
+    </script>
+
+
+    <script>
+        /* 返回ajax对象 */
+        function getAJAX(){
+            if (window.XMLHttpRequest) {
+                // IE7+, Firefox, Chrome, Opera, Safari 浏览器执行代码
+                return new XMLHttpRequest();
+            }
+            else {
+                // IE6, IE5 浏览器执行代码
+                return new ActiveXObject("Microsoft.XMLHTTP");
+            }
+        }
+
+        /* 数据表的js */
+        layui.use('table', function(){
+            var table = layui.table;
+            var form = layui.form;
+            //监听表格复选框选择
+            table.on('checkbox(demo)', function(obj){
+                //console.log(obj)//输出选择信息
+            });
+
+
+            //监听删除操作，需要加载form模块
+            form.on('switch(delete)', function(obj){
+                /* 根据单选框的值来传改变is_deleted的值 */
+                var is_deleted;
+                if(obj.elem.checked){
+                    /* 启用 */
+                    is_deleted = 0;
+                }else{
+                    /* 停用 */
+                    is_deleted = 1;
+                }
+                var TypeId = obj.value;//获取该列的Id
+
+                var xmlhttp = getAJAX();
+                xmlhttp.onreadystatechange=function(){
+                    if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                    {
+                        /* 发送成功之后的提示信息 */
+                        if(xmlhttp.responseText=="true"){
+                            layer.msg("操作成功!");
+                        }else{
+                            layer.msg("未知错误!");
+                        }
+                    }
+                }
+                /* 选择POST模式发送ID */
+                xmlhttp.open("POST","setDeleteComicType",true);
+                xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                xmlhttp.send("is_deleted="+is_deleted+"&TypeId="+TypeId);
+            });
+
+
+
+            //监听工具条
+            table.on('tool(demo)', function(obj){
+                var data = obj.data;
+                if(obj.event === 'detail'){
+                    layer.msg('ID：'+ data.id + ' 的查看操作');
+                } else if(obj.event === 'del'){
+                    /* 删除游戏信息 */
+                    layer.confirm('真的删除吗?删除后将无法恢复!', function(index){
+                        var xmlhttp = getAJAX();
+                        xmlhttp.onreadystatechange=function(){
+                            if (xmlhttp.readyState==4 && xmlhttp.status==200)
+                            {
+                                /* 发送成功之后的提示信息 */
+                                if(xmlhttp.responseText=="true"){
+                                    layer.msg("操作成功!");
+                                    obj.del();
+                                }else{
+                                    layer.msg("未知错误!");
+                                }
+                            }
+                        }
+                        /* 选择POST模式发送ID */
+                        xmlhttp.open("POST","deleteById",true);
+                        xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+                        xmlhttp.send("TypeId="+JSON.stringify(data.TypeId));
+                        layer.close(index);
+                    });
+                } else if(obj.event === 'edit'){
+                    /* 修改动画名称 */
+                    window.location.href="modifiedComicTypeNamePage?TypeId="+JSON.stringify(data.TypeId);
+                }
+            });
+
+            $('.demoTable .layui-btn').on('click', function(){
+                var type = $(this).data('type');
+                active[type] ? active[type].call(this) : '';
+            });
+        });
+    </script>
+</div>
+</body>
+</html>
